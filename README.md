@@ -39,18 +39,18 @@ namespace YourNamespace
 
     public partial class Enum<T> where T : Enum
     {
-        public static IEnumerable<(string desc, T value)> GetDescriptionList()
+        public static IEnumerable<(T value, string desc)> GetDescriptionList()
         {
             var enumType = typeof(T);
 
-            object result = Enumerable.Empty<(string desc, T value)>();
+            object result = Enumerable.Empty<(T value, string desc)>();
 
             if (enumType.Equals(typeof(Colour)))
             {
                 result = new List<(string desc, Colour value)>()
                 {
-                    ("Color Blue", Colour.Blue),
-                    ("Color Red", Colour.Red),
+                    (Colour.Blue, "Color Blue"),
+                    (Colour.Red, "Color Red"),
                 };
             }
             else
@@ -58,7 +58,7 @@ namespace YourNamespace
                 throw new NotSupportedException($"No member in {enumType.FullName} has Description attribute.");
             }
 
-            return (IEnumerable<(string desc, T value)>)result;
+            return (IEnumerable<(T value, string desc)>)result;
         }
 
         public static Dictionary<T, string> GetDescriptionDic()
@@ -84,4 +84,17 @@ namespace YourNamespace
         }
     }
 }
+```
+
+Usage:
+
+```c#
+var blueDesc = Colour.Blue.GetDescription();
+// "Color Blue"
+
+IEnumerable<(Colour color, string desc)> descList = Enum<Colour>.GetDescriptionList();
+// [(Colour.Blue, "Color Blue"), (Colour.Red, "Color Red")]
+
+Dictionary<Colour, string> descDic = Enum<Colour>.GetDescriptionDic();
+// {Colour.Blue: "Color Blue"， Colour.Red: "Color Red"}
 ```
