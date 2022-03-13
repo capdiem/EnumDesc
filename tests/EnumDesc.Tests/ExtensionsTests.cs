@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+锘縰sing Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +11,20 @@ namespace EnumDesc.Tests
         [TestMethod]
         public void CheckEveryMemberHasDesc()
         {
-            Assert.AreEqual("蓝色", EveryMemberHasDesc.Blue_Desc.GetDescription());
-            Assert.AreEqual("紫色", EveryMemberHasDesc.Purple_Desc.GetDescription());
-            Assert.AreEqual("红色", EveryMemberHasDesc.Red_Desc.GetDescription());
+            Assert.AreEqual("钃濊壊", EveryMemberHasDesc.Blue_Desc.GetDescription());
+            Assert.AreEqual("绱壊", EveryMemberHasDesc.Purple_Desc.GetDescription());
+            Assert.AreEqual("绾㈣壊", EveryMemberHasDesc.Red_Desc.GetDescription());
         }
 
         [TestMethod]
         public void CheckOnlyOneMemberHasDesc()
         {
-            Assert.AreNotEqual("蓝色", OnlyOneMemberHasDesc.Blue_NoDesc.GetDescription());
+            Assert.AreNotEqual("钃濊壊", OnlyOneMemberHasDesc.Blue_NoDesc.GetDescription());
             Assert.AreEqual(nameof(OnlyOneMemberHasDesc.Blue_NoDesc), OnlyOneMemberHasDesc.Blue_NoDesc.GetDescription());
 
-            Assert.AreEqual("紫色", OnlyOneMemberHasDesc.Purple_Desc.GetDescription());
+            Assert.AreEqual("绱壊", OnlyOneMemberHasDesc.Purple_Desc.GetDescription());
 
-            Assert.AreNotEqual("红色", OnlyOneMemberHasDesc.Red_NoDesc.GetDescription());
+            Assert.AreNotEqual("绾㈣壊", OnlyOneMemberHasDesc.Red_NoDesc.GetDescription());
             Assert.AreEqual(nameof(OnlyOneMemberHasDesc.Red_NoDesc), OnlyOneMemberHasDesc.Red_NoDesc.GetDescription());
         }
 
