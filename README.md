@@ -9,12 +9,13 @@ And then EnumDesc will generate an `Enum<T>` class that provides `GetDescription
 For example, there is a enum named Colour:
 
 ```c#
-public enum Colour {
-  [Description("Color Blue")]
-  Blue,
+public enum Colour
+{
+    [Description("Color Blue")]
+    Blue,
 
-  [Description("Color Red")]
-  Red
+    [Description("Color Red")]
+    Red
 }
 ```
 
