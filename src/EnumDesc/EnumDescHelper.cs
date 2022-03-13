@@ -56,11 +56,11 @@ namespace {item.Key}
                 sb.Append($@"
     public partial class Enum<T> where T : Enum
     {{
-        public static IEnumerable<(string desc, T value)> GetDescriptionList()
+        public static IEnumerable<(T value, string desc)> GetDescriptionList()
         {{
             var enumType = typeof(T);
 
-            object result = Enumerable.Empty<(string desc, T value)>();
+            object result = Enumerable.Empty<(T value, string desc)>();
 ");
 
                 foreach (var (model, index) in item.Select((m, i) => (m, i)))
@@ -78,13 +78,13 @@ namespace {item.Key}
 
                     sb.Append($@"
             {{
-                result = new List<(string desc, {model.Name} value)>()
+                result = new List<({model.Name} value, string desc)>()
                 {{");
 
                     foreach (var member in model.Members)
                     {
                         sb.Append($@"
-                    (""{member.Description}"", {model.Name}.{member.Name}),");
+                    ({model.Name}.{member.Name}, ""{member.Description}""),");
                     }
 
                     sb.Append(@"
@@ -98,7 +98,7 @@ namespace {item.Key}
                 throw new NotSupportedException($""No member in {{enumType.FullName}} has Description attribute."");
             }}
 
-            return (IEnumerable<(string desc, T value)>)result;
+            return (IEnumerable<(T value, string desc)>)result;
         }}
 
         public static Dictionary<T, string> GetDescriptionDic()

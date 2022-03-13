@@ -14,11 +14,11 @@ namespace EnumDesc.Tests
             var res = Enum<EveryMemberHasDesc>.GetDescriptionList();
             Assert.IsNotNull(res);
 
-            var list = new List<(string desc, EveryMemberHasDesc value)>()
+            var list = new List<(EveryMemberHasDesc value, string desc)>()
             {
-                (EveryMemberHasDesc.Blue_Desc.GetDescription(), EveryMemberHasDesc.Blue_Desc),
-                (EveryMemberHasDesc.Purple_Desc.GetDescription(), EveryMemberHasDesc.Purple_Desc),
-                (EveryMemberHasDesc.Red_Desc.GetDescription(), EveryMemberHasDesc.Red_Desc),
+                (EveryMemberHasDesc.Blue_Desc, EveryMemberHasDesc.Blue_Desc.GetDescription()),
+                (EveryMemberHasDesc.Purple_Desc, EveryMemberHasDesc.Purple_Desc.GetDescription()),
+                (EveryMemberHasDesc.Red_Desc, EveryMemberHasDesc.Red_Desc.GetDescription()),
             };
 
             Assert.IsTrue(Enumerable.SequenceEqual(res, list));
@@ -30,11 +30,11 @@ namespace EnumDesc.Tests
             var res = Enum<OnlyOneMemberHasDesc>.GetDescriptionList();
             Assert.IsNotNull(res);
 
-            var list = new List<(string desc, OnlyOneMemberHasDesc value)>()
+            var list = new List<(OnlyOneMemberHasDesc value, string desc)>()
             {
-                (nameof(OnlyOneMemberHasDesc.Blue_NoDesc), OnlyOneMemberHasDesc.Blue_NoDesc),
-                (OnlyOneMemberHasDesc.Purple_Desc.GetDescription(), OnlyOneMemberHasDesc.Purple_Desc),
-                (nameof(OnlyOneMemberHasDesc.Red_NoDesc), OnlyOneMemberHasDesc.Red_NoDesc),
+                (OnlyOneMemberHasDesc.Blue_NoDesc, nameof(OnlyOneMemberHasDesc.Blue_NoDesc)),
+                (OnlyOneMemberHasDesc.Purple_Desc, OnlyOneMemberHasDesc.Purple_Desc.GetDescription()),
+                (OnlyOneMemberHasDesc.Red_NoDesc, nameof(OnlyOneMemberHasDesc.Red_NoDesc)),
             };
 
             Assert.IsTrue(Enumerable.SequenceEqual(res, list));
