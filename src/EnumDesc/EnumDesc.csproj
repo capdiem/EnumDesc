@@ -6,7 +6,7 @@
 		<IsRoslynComponent>true</IsRoslynComponent>
 		<Nullable>enable</Nullable>
 		<AssemblyName>EnumDesc</AssemblyName>
-		<Description>Generates description methods for enum.</Description>
+		<Description>A library that automatically adds support for getting description of enum in c#.</Description>
 		<PackageId>EnumDesc</PackageId>
 		<PackageProjectUrl>https://github.com/capdiem/EnumDesc</PackageProjectUrl>
 		<PackageVersion>0.1.0</PackageVersion>
