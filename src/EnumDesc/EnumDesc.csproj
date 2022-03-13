@@ -1,18 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <LangVersion>preview</LangVersion>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>preview</LangVersion>
 		<IsRoslynComponent>true</IsRoslynComponent>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+		<Nullable>enable</Nullable>
+		<AssemblyName>EnumDesc</AssemblyName>
+		<Description>Generates description methods for enum.</Description>
+		<PackageId>EnumDesc</PackageId>
+		<PackageProjectUrl>https://github.com/capdiem/EnumDesc</PackageProjectUrl>
+		<PackageVersion>0.1.0</PackageVersion>
+		<PublishRepositoryUrl></PublishRepositoryUrl>
+		<RepositoryUrl>https://github.com/capdiem/EnumDesc</RepositoryUrl>
+		<PackageTags>source-generator;enum;description;</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
-    </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath=""/>
+		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
+	</ItemGroup>
 
 </Project>
