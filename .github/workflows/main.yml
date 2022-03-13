@@ -1,0 +1,23 @@
+name: Publish to Nuget
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/EnumDesc/*.csproj
+
+jobs:
+  publish:
+    name: build, pack & publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Publish NuGet
+        uses: brandedoutcast/publish-nuget@v2.5.5
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: src/EnumDesc/EnumDesc.csproj
+          # API key to authenticate with NuGet server
+          NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
