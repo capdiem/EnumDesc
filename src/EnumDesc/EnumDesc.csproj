@@ -9,7 +9,7 @@
 		<Description>A library that automatically adds support for getting description of enum in c#.</Description>
 		<PackageId>EnumDesc</PackageId>
 		<PackageProjectUrl>https://github.com/capdiem/EnumDesc</PackageProjectUrl>
-		<PackageVersion>0.1.0</PackageVersion>
+		<Version>0.1.0</Version>
 		<PublishRepositoryUrl></PublishRepositoryUrl>
 		<RepositoryUrl>https://github.com/capdiem/EnumDesc</RepositoryUrl>
 		<PackageTags>source-generator;enum;description;</PackageTags>
