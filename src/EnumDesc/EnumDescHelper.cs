@@ -54,13 +54,17 @@ namespace {item.Key}
                 }
 
                 sb.Append($@"
-    public partial class Enum<T> where T : Enum
+    public partial class Enum<TEnum> where TEnum : Enum
     {{
-        public static IEnumerable<(T value, string desc)> GetDescriptionList()
-        {{
-            var enumType = typeof(T);
+        public static IEnumerable<(TEnum? value, string desc)> GetDescriptionList() => GetDescriptionList<TEnum>();
 
-            object result = Array.Empty<(T value, string desc)>();
+        public static IEnumerable<(TValue? value, string desc)> GetDescriptionList<TValue>(bool withAll = false, string allDesc = ""All"", TValue? allValue = default)
+        {{
+            var enumType = typeof(TEnum);
+
+            int index = 0;
+
+            (TValue? value, string desc)[] result;
 ");
 
                 foreach (var (model, index) in item.Select((m, i) => (m, i)))
@@ -78,17 +82,24 @@ namespace {item.Key}
 
                     sb.Append($@"
             {{
-                result = new ({model.Name} value, string desc)[]
-                {{");
+                if (withAll)
+                {{
+                    result = new (TValue? value, string desc)[{model.Members.Count + 1}];
+                    result[index++] = (allValue, allDesc);
+                }}
+                else
+                {{
+                    result = new (TValue? value, string desc)[{model.Members.Count}];
+                }}
+");
 
                     foreach (var member in model.Members)
                     {
                         sb.Append($@"
-                    ({model.Name}.{member.Name}, ""{member.Description}""),");
+                result[index++] = ((TValue)(object){model.FormattedUnderlyingType}{model.Name}.{member.Name}, ""{member.Description}"");");
                     }
 
                     sb.Append(@"
-                };
             }");
                 }
 
@@ -98,14 +109,21 @@ namespace {item.Key}
                 throw new NotSupportedException($""No member in {{enumType.FullName}} has Description attribute."");
             }}
 
-            return (IEnumerable<(T value, string desc)>)result;
+            return result;
         }}
 
-        public static Dictionary<T, string> GetDescriptionDic()
-        {{
-            var enumType = typeof(T);
+        public static Dictionary<TEnum, string> GetDescriptionDic() => GetDescriptionDic<TEnum>();
 
-            object result = new Dictionary<T, string>();
+        public static Dictionary<TValue, string> GetDescriptionDic<TValue>(bool withAll = false, string allDesc = ""All"", TValue allValue = default!) where TValue : notnull
+        {{
+            var enumType = typeof(TEnum);
+
+            var result = new Dictionary<TValue, string>();
+
+            if (withAll)
+            {{
+                result.Add(allValue, allDesc);
+            }}
 ");
 
                 foreach (var (model, index) in item.Select((m, i) => (m, i)))
@@ -122,18 +140,14 @@ namespace {item.Key}
                     }
 
                     sb.Append($@"
-            {{
-                result = new Dictionary<{model.Name}, string>()
-                {{");
-
+            {{");
                     foreach (var member in model.Members)
                     {
                         sb.Append($@"
-                    [{model.Name}.{member.Name}] = ""{member.Description}"",");
+                result.Add((TValue)(object){model.FormattedUnderlyingType}{model.Name}.{member.Name}, ""{member.Description}"");");
                     }
 
                     sb.Append(@"
-                };
             }");
                 }
 
@@ -143,7 +157,7 @@ namespace {item.Key}
                 throw new NotSupportedException($""No member in {{enumType.FullName}} has Description attribute."");
             }}
 
-            return (Dictionary<T, string>)result;
+            return result;
         }}
     }}
         ");

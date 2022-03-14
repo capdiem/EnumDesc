@@ -11,6 +11,7 @@ namespace EnumDesc;
 public class EnumDescGenerator : IIncrementalGenerator
 {
     private const string DescriptionAttributeName = "Description";
+    private const string FlagsAttributeName = "Flags";
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -31,8 +32,10 @@ public class EnumDescGenerator : IIncrementalGenerator
         });
     }
 
+    // TODO: should catch the fullName of attr
     static bool IsSyntaxTargetForGeneration(SyntaxNode node, CancellationToken token) =>
         node is EnumDeclarationSyntax enumNode &&
+        !enumNode.AttributeLists.Any(list => list.Attributes.Any(attr => attr.Name.ToString() == FlagsAttributeName)) &&
         enumNode.Members.Any(member =>
             member.AttributeLists.Any(list => list.Attributes.Any(attr => attr.Name.ToString() == DescriptionAttributeName)));
 
@@ -50,8 +53,9 @@ public class EnumDescGenerator : IIncrementalGenerator
 
         var name = enumSymbol.Name;
         var @namespace = enumSymbol.ContainingNamespace.IsGlobalNamespace ? null : enumSymbol.ContainingNamespace.ToDisplayString();
+        var underlyingType = enumSymbol.EnumUnderlyingType?.ToDisplayString();
 
-        var model = new EnumDescModel(name, @namespace);
+        var model = new EnumDescModel(name, @namespace, underlyingType);
 
         foreach (var member in enumSymbol.GetMembers())
         {
@@ -67,8 +71,8 @@ public class EnumDescGenerator : IIncrementalGenerator
                                           ad.AttributeClass is not null &&
                                           ad.AttributeClass.Equals(descriptionAttribute, SymbolEqualityComparer.Default));
 
-            description = attributeData is null 
-                ? member.Name 
+            description = attributeData is null
+                ? member.Name
                 : attributeData.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
 
             model.Members.Add(new EnumDescModel.Member(member.Name, description));
