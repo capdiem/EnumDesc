@@ -60,7 +60,7 @@ namespace {item.Key}
         {{
             var enumType = typeof(T);
 
-            object result = Enumerable.Empty<(T value, string desc)>();
+            object result = Array.Empty<(T value, string desc)>();
 ");
 
                 foreach (var (model, index) in item.Select((m, i) => (m, i)))
@@ -78,7 +78,7 @@ namespace {item.Key}
 
                     sb.Append($@"
             {{
-                result = new List<({model.Name} value, string desc)>()
+                result = new ({model.Name} value, string desc)[]
                 {{");
 
                     foreach (var member in model.Members)
