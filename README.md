@@ -108,3 +108,50 @@ IEnumerable<(Colour color, string desc)> descList = Enum<Colour>.GetDescriptionL
 Dictionary<Colour, string> descDic = Enum<Colour>.GetDescriptionDic();
 // {Colour.Blue: "Color Blue"， Colour.Red: "Color Red"}
 ```
+
+## Benchmarks
+
+### GetDescription()
+
+``` ini
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.22000
+AMD Ryzen 7 5800H with Radeon Graphics, 1 CPU, 16 logical and 8 physical cores
+.NET SDK=6.0.200
+  [Host]     : .NET 6.0.2 (6.0.222.6406), X64 RyuJIT
+  DefaultJob : .NET 6.0.2 (6.0.222.6406), X64 RyuJIT
+```
+
+|         Method |       Mean |      Error |     StdDev |
+|--------------- |-----------:|-----------:|-----------:|
+| EnumReflection | 891.516 ns | 16.0285 ns | 14.9931 ns |
+|       EnumDesc |   1.258 ns |  0.0293 ns |  0.0274 ns |
+
+### Enum&lt;T&gt;.GetDescriptionList()
+
+``` ini
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.22000
+AMD Ryzen 7 5800H with Radeon Graphics, 1 CPU, 16 logical and 8 physical cores
+.NET SDK=6.0.200
+  [Host]     : .NET 6.0.2 (6.0.222.6406), X64 RyuJIT
+  DefaultJob : .NET 6.0.2 (6.0.222.6406), X64 RyuJIT
+```
+
+|         Method |         Mean |      Error |     StdDev |
+|--------------- |-------------:|-----------:|-----------:|
+| EnumReflection | 14,273.91 ns | 284.166 ns | 265.809 ns |
+|       EnumDesc |     76.13 ns |   0.655 ns |   0.580 ns |
+
+### Enum&lt;T&gt;.GetDescriptionDic()
+
+``` ini
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.22000
+AMD Ryzen 7 5800H with Radeon Graphics, 1 CPU, 16 logical and 8 physical cores
+.NET SDK=6.0.200
+  [Host]     : .NET 6.0.2 (6.0.222.6406), X64 RyuJIT
+  DefaultJob : .NET 6.0.2 (6.0.222.6406), X64 RyuJIT
+```
+
+|         Method |        Mean |    Error |   StdDev |
+|--------------- |------------:|---------:|---------:|
+| EnumReflection | 15,866.9 ns | 72.60 ns | 56.68 ns |
+|       EnumDesc |    187.2 ns |  2.97 ns |  2.64 ns |
