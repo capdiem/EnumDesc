@@ -6,7 +6,7 @@ using System.Linq;
 namespace EnumDesc.Tests
 {
     [TestClass]
-    public class EnumTests
+    public partial class EnumTests
     {
         [TestMethod]
         public void EveryMemberHasDesc_GetDescriptionList_Ok()

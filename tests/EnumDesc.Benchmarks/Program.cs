@@ -37,31 +37,8 @@ public class GetDescriptionDicTask
 
 public enum Colour
 {
-    [Description("Color Black")]
-    Black,
     [Description("Color Blue")]
     Blue,
-    [Description("Color Brown")]
-    Brown,
-    [Description("Color Cyan")]
-    Cyan,
-    [Description("Color Green")]
-    Green,
-    [Description("Color Grey")]
-    Grey,
-    [Description("Color Indigo")]
-    Indigo,
-    [Description("Color Orange")]
-    Orange,
-    [Description("Color Pink")]
-    Pink,
-    [Description("Color Purple")]
-    Purple,
     [Description("Color Red")]
-    Red,
-    [Description("Color White")]
-    White,
-    [Description("Color Yellow")]
-    Yellow
+    Red
 }
-

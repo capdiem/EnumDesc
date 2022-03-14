@@ -15,6 +15,8 @@ namespace EnumDesc
         /// </summary>
         public string? Namespace { get; }
 
+        public string? UnderlyingType { get; }
+
         /// <summary>
         /// The members of Enum
         /// </summary>
@@ -27,10 +29,13 @@ namespace EnumDesc
 
         public string Field => Name.ToCamelCase();
 
-        public EnumDescModel(string name, string? @namespace)
+        public string FormattedUnderlyingType => UnderlyingType is not null ? $"({UnderlyingType})" : "";
+
+        public EnumDescModel(string name, string? @namespace, string? underlyingType)
         {
             Name = name;
             Namespace = @namespace;
+            UnderlyingType = underlyingType;
             Members = new List<Member>();
         }
 
