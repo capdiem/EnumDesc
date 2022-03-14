@@ -6,6 +6,16 @@ When you have an enum and it has at least one member marked with the `Descriptio
 
 And then EnumDesc will generate an `Enum<T>` class that provides `GetDescriptionList` and `GetDescriptionDic` methods.
 
+## Get Started
+
+EnumDesc can be installed using the Nuget package manager or the `dotnet` CLI.
+
+```shell
+dotnet add package EnumDesc
+```
+
+## Example
+
 For example, there is a enum named Colour:
 
 ```c#
