@@ -96,7 +96,7 @@ namespace {item.Key}
                     foreach (var member in model.Members)
                     {
                         sb.Append($@"
-                result[index++] = ((TValue)(object){model.FormattedUnderlyingType}{model.Name}.{member.Name}, ""{member.Description}"");");
+                result[index++] = ((TValue)(object){model.Name}.{member.Name}, ""{member.Description}"");");
                     }
 
                     sb.Append(@"
@@ -144,7 +144,7 @@ namespace {item.Key}
                     foreach (var member in model.Members)
                     {
                         sb.Append($@"
-                result.Add((TValue)(object){model.FormattedUnderlyingType}{model.Name}.{member.Name}, ""{member.Description}"");");
+                result.Add((TValue)(object){model.Name}.{member.Name}, ""{member.Description}"");");
                     }
 
                     sb.Append(@"
